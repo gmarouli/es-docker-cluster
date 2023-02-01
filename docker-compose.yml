@@ -69,11 +69,11 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
-      - esdata01:/usr/share/elasticsearch/data
     ports:
       - ${ES_PORT}:9200
     environment:
       - node.name=es01
+      - node.roles=[master]
       - cluster.name=${CLUSTER_NAME}
       - cluster.initial_master_nodes=es01,es02,es03
       - discovery.seed_hosts=es02,es03
@@ -216,8 +216,6 @@ services:
 
 volumes:
   certs:
-    driver: local
-  esdata01:
     driver: local
   esdata02:
     driver: local
